@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for listing in listings %} 
+    <article style="min-height: 200px;">
+        <h3>{{ listing.name }}</h3>
+        {% if listing.image_url %}
+        <img src="{{ listing.image_url }}" width="200" alt="picture of {{ listing.name }}" style="float: left;">
+        {% else %}
+        <img src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg" width="200" alt="No picture provided" style="float: left;">
+        {% endif %}
+        <p>{{ listing.description }}</p>
+        <p class="price">current price :
+            {% if listing.bids.all %}
+            {{ listing.bids.last.amount }}
+            {% else %}
+            {{ listing.base_price }}
+            {% endif %}</p>
+        <p class="date">created : {{ listing.date }}</p>
+    </article>
+    {% endfor %}  
+{% endblock %}
